@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace LeetCode
@@ -24,68 +25,20 @@ namespace LeetCode
     public class Solution3
     {
         public int LengthOfLongestSubstring(string s) {
-            //a
-            //-
-            //ab
-            //b
-            //-
-            //abc
-            //bc
-            //c
-            //-
-            //abcA
-            //bca
-            //ca
-            //a
-            //-
-            //bcaB
-            //cab
-            //ab
-            //b
-            //-
-            //cabC
-            //abc
-            //bc
-            //c
-            //-
-            //abcB
-            //bcB
-            //cb
-            //b
-            //-
-            //cbB
-            //bB
-            //b
-            //-
-            var longest = 0;
             var n = s.Length;
-            for (int i = 0; i < n; i++){
-                for (int j = i + 1; j <= n; j++) {
-                    var len = j-i;
-                    if (len > longest){
-                        if (IsUnique(s, i, j)) {
-                            longest = len;
-                        } else {
-                            break;
-                        }
-                    }
-                }   
-            }
-            return longest;
-        }
-
-        private bool IsUnique(string s, int start, int end)
-        {
-            var hashTable = new Hashtable(end-start);
-            var chars = s.Substring(start, end-start).ToCharArray();
-            foreach (var item in chars)
-            {
-                if (hashTable[item] != null) {
-                    return false;
+            var set = new HashSet<char>();
+            int ans = 0, i = 0, j = 0;
+            while (i < n && j < n) {
+                // try to extend the range [i, j]
+                if (!set.Contains(s[j])){
+                    set.Add(s[j++]);
+                    ans = Math.Max(ans, j - i);
                 }
-                hashTable[item] = item;
+                else {
+                    set.Remove(s[i++]);
+                }
             }
-            return true;
+            return ans;
         }
     }
 }
