@@ -7,7 +7,7 @@ namespace LeetCode
 {
     class Program3
     {
-        static void Main(string[] args)
+        static void Main3(string[] args)
         {
             var solution = new Solution3();
             
