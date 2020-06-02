@@ -28,19 +28,23 @@ namespace LeetCode
     {
         public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
         {
-            return Sum(l1, l2);
+            return RecursiveSum(l1, l2);
         }
 
-        public ListNode Sum(ListNode l1, ListNode l2, int carry = 0) {
+        public ListNode RecursiveSum(ListNode l1, ListNode l2, int carry = 0) {
+            // If both are null, we're done
             if (l1 == null && l2 == null) {
+                // Might still have to create carry node
                 return carry == 1 ? new ListNode(1) : null;
             }
-
-            var sum = carry + (l1?.val ?? 0) + (l2?.val?? 0);
+            
+            // Sum up current values + carry
+            var sum = (l1?.val ?? 0) + (l2?.val?? 0) + carry;
+            // Verify if we have to carry
             if (sum > 9) {
-                return new ListNode(sum % 10, Sum(l1?.next, l2?.next, 1));
+                return new ListNode(sum % 10, RecursiveSum(l1?.next, l2?.next, 1));
             } else {
-                return new ListNode(sum, Sum(l1?.next, l2?.next, 0));
+                return new ListNode(sum, RecursiveSum(l1?.next, l2?.next, 0));
             }
         }
     }

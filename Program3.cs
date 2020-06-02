@@ -25,18 +25,18 @@ namespace LeetCode
     public class Solution3
     {
         public int LengthOfLongestSubstring(string s) {
-            var n = s.Length;
-            var set = new HashSet<char>();
-            int ans = 0, i = 0, j = 0;
-            while (i < n && j < n) {
-                // try to extend the range [i, j]
-                if (!set.Contains(s[j])){
-                    set.Add(s[j++]);
-                    ans = Math.Max(ans, j - i);
+            // Optimized sliding window 
+            int n = s.Length, ans = 0;
+            var map = new Dictionary<char, int>();
+            // current index of character
+            // try to extend the range [i, j]
+            for (int j = 0, i = 0; j < n; j++) {
+                if (map.ContainsKey(s[j])) {
+                    i = Math.Max(map[s[j]], i);
+                    map.Remove(s[j]);
                 }
-                else {
-                    set.Remove(s[i++]);
-                }
+                ans = Math.Max(ans, j - i + 1);
+                map.Add(s[j], j + 1);
             }
             return ans;
         }
