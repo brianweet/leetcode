@@ -21,6 +21,8 @@ namespace LeetCode
             // "cbbd" -> "bb"
             Run(solution, "cbbd", "bb");
 
+            Run(solution, "gphyvqruxjmwhonjjrgumxjhfyupajxbjgthzdvrdqmdouuukeaxhjumkmmhdglqrrohydrmbvtuwstgkobyzjjtdtjroqpyusfsbjlusekghtfbdctvgmqzeybnwzlhdnhwzptgkzmujfldoiejmvxnorvbiubfflygrkedyirienybosqzrkbpcfidvkkafftgzwrcitqizelhfsruwmtrgaocjcyxdkovtdennrkmxwpdsxpxuarhgusizmwakrmhdwcgvfljhzcskclgrvvbrkesojyhofwqiwhiupujmkcvlywjtmbncurxxmpdskupyvvweuhbsnanzfioirecfxvmgcpwrpmbhmkdtckhvbxnsbcifhqwjjczfokovpqyjmbywtpaqcfjowxnmtirdsfeujyogbzjnjcmqyzciwjqxxgrxblvqbutqittroqadqlsdzihngpfpjovbkpeveidjpfjktavvwurqrgqdomiibfgqxwybcyovysydxyyymmiuwovnevzsjisdwgkcbsookbarezbhnwyqthcvzyodbcwjptvigcphawzxouixhbpezzirbhvomqhxkfdbokblqmrhhioyqubpyqhjrnwhjxsrodtblqxkhezubprqftrqcyrzwywqrgockioqdmzuqjkpmsyohtlcnesbgzqhkalwixfcgyeqdzhnnlzawrdgskurcxfbekbspupbduxqxjeczpmdvssikbivjhinaopbabrmvscthvoqqbkgekcgyrelxkwoawpbrcbszelnxlyikbulgmlwyffurimlfxurjsbzgddxbgqpcdsuutfiivjbyqzhprdqhahpgenjkbiukurvdwapuewrbehczrtswubthodv", "");
+
             static void Run(Solution5 solution, string input, string expected)
             {
                 var result = solution.LongestPalindrome(input);
@@ -36,23 +38,21 @@ namespace LeetCode
             var longest = "";
             for (int i = 0; i < s.Length; i++)
             {
-                for (int j = s.Length - 1; j >= i; j--)
+                for (int j = s.Length; j >= i; j--)
                 {
-                    var length = j - i + 1;
+                    var length = j - i;
                     if (length > longest.Length)
                     {
                         var current = s.Substring(i, length);
                         if (IsPalindrome(current))
                         {
                             longest = current;
-                            i++;
-                            j = s.Length;
+                            break;
                         }
                     }
                     else
                     {
-                        i++;
-                        j = s.Length;
+                        break;
                     }
                 }
             }
