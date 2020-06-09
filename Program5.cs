@@ -10,10 +10,10 @@ namespace LeetCode
         {
             var solution = new Solution5();
 
-            var test = solution.IsPalindrome("lepel");
-            var test0 = solution.IsPalindrome("bab");
-            var test1 = solution.IsPalindrome("bb");
-            var test2 = solution.IsPalindrome("bbx");
+            var test = solution.IsPalindrome("lepel", 0, 4);
+            var test0 = solution.IsPalindrome("bab", 0, 2);
+            var test1 = solution.IsPalindrome("bb", 0, 1);
+            var test2 = solution.IsPalindrome("bbx", 0, 2);
 
 
             // "babad" -> "bab" or "aba"
@@ -43,10 +43,9 @@ namespace LeetCode
                     var length = j - i;
                     if (length > longest.Length)
                     {
-                        var current = s.Substring(i, length);
-                        if (IsPalindrome(current))
+                        if (IsPalindrome(s, i, j-1))
                         {
-                            longest = current;
+                            longest = s.Substring(i, length);
                             break;
                         }
                     }
@@ -59,9 +58,8 @@ namespace LeetCode
             return longest;
         }
 
-        public bool IsPalindrome(string v)
+        public bool IsPalindrome(string v, int i, int j)
         {
-            int i = 0, j = v.Length - 1;
             while (i < j)
             {
                 if (v[i] != v[j])
